@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart MIS Presentation - Dot and Cross Technology</title>
+    <style>
+        :root {
+            --ucp-primary: #800000; /* Maroon-ish color for UCP */
+            --walmart-blue: #0071dc;
+            --walmart-yellow: #ffc220;
+            --text-color: #333;
+            --bg-color: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden; /* Prevent scrolling, handle in slides */
+        }
+
+       .slide-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+       .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+       .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 1;
+        }
+
+        /* Slide Header */
+       .header {
+            border-bottom: 4px solid var(--ucp-primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+       .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--ucp-primary);
+        }
+
+       .header.presenter {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #555;
+            text-align: right;
+        }
+
+       .header.reg-no {
+            font-size: 0.9rem;
+            color: #777;
+            display: block;
+        }
+
+        /* Slide Content */
+       .content {
+            flex: 1;
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+
+       .content h2 {
+            color: var(--walmart-blue);
+            margin-top: 0;
+        }
+
+       .content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+       .content ul li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+       .content ul li::before {
+            content: "•";
+            color: var(--walmart-yellow);
+            font-weight: bold;
+            font-size: 2rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+       .stat-box {
+            background-color: #f9f9f9;
+            border-left: 5px solid var(--walmart-blue);
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+
+        /* Title Slide Specifics */
+       .title-slide {
+            text-align: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--ucp-primary) 0%, #4a0000 100%);
+            color: white;
+        }
+
+       .title-slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: white;
+            border: none;
+        }
+        
+       .title-slide h2 {
+            color: var(--walmart-yellow);
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+       .group-info {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+        }
+
+       .group-info p {
+            margin: 5px 0;
+            font-size: 1.2rem;
+        }
+
+        /* Controls */
+       .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+       .btn {
+            background-color: var(--ucp-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+       .btn:hover {
+            background-color: #a00000;
+        }
+
+       .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+       .progress {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background-color: var(--walmart-yellow);
+            transition: width 0.3s;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress" id="progressBar"></div>
+
+<div class="slide-container">
+
+    <div class="slide active title-slide">
+        <h1>Introduction to Management Information Systems</h1>
+        <h2>Case Study: Walmart Inc.</h2>
+        
+        <div class="group-info">
+            <p><strong>Group Name:</strong> Dot and Cross Technology</p>
+            <p><strong>University:</strong> University of Central Punjab</p>
+            <p><strong>Instructor:</strong> Prof. Waseem Anjum</p>
+            <hr style="border-color: rgba(255,255,255,0.3);">
+            <p><strong>Members:</strong></p>
+            <p>Muhammad Anas Yousaf (G1F22UBSCS192)</p>
+            <p>Abdullah (G1F22UBSCS006)</p>
+            <p>Yaser (G1F22UBSCS193)</p>
+            <p>Abdul Rehman Khalid (G1F22UBSCS201)</p>
+            <p>Jawad Ahmad (G1F22UBSCS020)</p>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>1. Success Story</h1>
+            <div class="presenter">
+                Muhammad Anas Yousaf<br>
+                <span class="reg-no">G1F22UBSCS192</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>The Visionary: Sam Walton (1945–1962)</h2>
+            <ul>
+                <li><strong>The Core Philosophy:</strong> Sam Walton purchased a Ben Franklin franchise in Newport, AR (1945). He adopted a counterintuitive strategy: Lower margins + High volume = Success.</li>
+                <li><strong>Innovation Lab:</strong> Opened "Walton's 5&10" in Bentonville (1950). Introduced self-service concepts and central checkout registers to reduce labor costs.</li>
+                <li><strong>The First Walmart:</strong> Opened July 2, 1962, in Rogers, Arkansas.</li>
+                <li><strong>Unique Strategy:</strong> While competitors (Kmart) targeted cities, Walton targeted rural towns (pop. 5k–25k) that were underserved.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>1. Success Story</h1>
+            <div class="presenter">
+                Muhammad Anas Yousaf<br>
+                <span class="reg-no">G1F22UBSCS192</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>National Expansion (1970–1990)</h2>
+            <ul>
+                <li><strong>Going Public:</strong> IPO in 1970 provided capital to pay debts and build the first Distribution Center (DC) in Bentonville.</li>
+                <li><strong>Technology Early Adopter:</strong> Launched largest private satellite network in 1983 to connect all stores for real-time data.</li>
+                <li><strong>Format Innovation:</strong>
+                    <ul>
+                        <li>1983: First Sam's Club (Membership model).</li>
+                        <li>1988: First Supercenter (Grocery + General Merchandise).</li>
+                    </ul>
+                </li>
+                <li><strong>Milestone:</strong> Became the #1 retailer in the U.S. by 1990, surpassing Sears and Kmart.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>1. Success Story</h1>
+            <div class="presenter">
+                Muhammad Anas Yousaf<br>
+                <span class="reg-no">G1F22UBSCS192</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Global Dominance & Digital Transformation</h2>
+            <ul>
+                <li><strong>International Growth:</strong> Entered Mexico (1991), Canada (1994), and acquired Asda in UK (1999).</li>
+                <li><strong>The E-Commerce Pivot:</strong>
+                    <ul>
+                        <li>Acquired <strong>Jet.com (2016)</strong> for $3.3B to gain e-commerce talent/tech.</li>
+                        <li>Acquired <strong>Flipkart (2018)</strong> for $16B to dominate the Indian market.</li>
+                    </ul>
+                </li>
+                <li><strong>Current Status:</strong> Operating 10,500+ stores in 19 countries. Transitioned from "Brick-and-Mortar" to "Omnichannel" Retailer.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>2. Products & Services</h1>
+            <div class="presenter">
+                Abdullah<br>
+                <span class="reg-no">G1F22UBSCS006</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Retail Merchandise Ecosystem</h2>
+            <ul>
+                <li><strong>Inventory Scale:</strong> ~420 million live listings online (2025). 95% provided by third-party marketplace sellers.</li>
+                <li><strong>Grocery (The Driver):</strong> Low-margin food drives frequency. 90% of U.S. population lives within 10 miles of a store.</li>
+                <li><strong>Private Brands (High Margin):</strong>
+                    <ul>
+                        <li><em>Great Value</em> (Food)</li>
+                        <li><em>Equate</em> (Health/Beauty)</li>
+                        <li><em>Mainstays</em> (Home)</li>
+                    </ul>
+                </li>
+                <li><strong>Strategy:</strong> Use groceries to drive traffic, then sell high-margin general merchandise.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>2. Products & Services</h1>
+            <div class="presenter">
+                Abdullah<br>
+                <span class="reg-no">G1F22UBSCS006</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>E-Commerce & Financial Services</h2>
+            <ul>
+                <li><strong>Walmart+:</strong> Subscription service (rivaling Amazon Prime). Offers free delivery, Paramount+, and fuel discounts.</li>
+                <li><strong>Walmart Fulfillment Services (WFS):</strong> Logistics service for third-party sellers (storage, picking, packing).</li>
+                <li><strong>In-Home Delivery:</strong> Associates deliver groceries directly into customers' refrigerators using smart locks.</li>
+                <li><strong>Fintech:</strong>
+                    <ul>
+                        <li>Money Services (Transfers, Check Cashing).</li>
+                        <li>"Super App" strategy for digital banking and wallets.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>2. Products & Services</h1>
+            <div class="presenter">
+                Abdullah<br>
+                <span class="reg-no">G1F22UBSCS006</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Healthcare & Advertising</h2>
+            <div class="stat-box">
+                <strong>Walmart Connect (Ads):</strong> Advertising business grew 53% recently. Margins are 70-80%, significantly higher than retail.
+            </div>
+            <ul>
+                <li><strong>Walmart Health:</strong>
+                    <ul>
+                        <li>Clinics attached to Supercenters.</li>
+                        <li>Primary care, dental, labs, and X-rays.</li>
+                        <li>Transparent flat-fee pricing (e.g., $40 visits) for the uninsured.</li>
+                    </ul>
+                </li>
+                <li><strong>Walmart Connect:</strong> Uses shopper data (purchase history) to sell targeted ads on screens in-store and online.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>3. Global Impacts</h1>
+            <div class="presenter">
+                Yaser<br>
+                <span class="reg-no">G1F22UBSCS193</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Economic Impact: "The Walmart Effect"</h2>
+            <ul>
+                <li><strong>Deflationary Force:</strong> Walmart's pressure on suppliers lowers prices across the entire retail industry, not just in its own stores.</li>
+                <li><strong>Supply Chain Standards:</strong> 
+                    <ul>
+                        <li>Mandated RFID adoption globally.</li>
+                        <li>Shifted industry from "Just-in-Time" to resilient "Just-in-Case" models.</li>
+                    </ul>
+                </li>
+                <li><strong>Market Access:</strong> A listing on Walmart shelves can transform a small business into a global player instantly.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>3. Global Impacts</h1>
+            <div class="presenter">
+                Yaser<br>
+                <span class="reg-no">G1F22UBSCS193</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Social Impact & Employment</h2>
+            <ul>
+                <li><strong>Largest Employer:</strong> 2.1 million associates worldwide. Wage policies set the floor for the retail sector (Avg U.S. hourly wage raised to ~$18.00).</li>
+                <li><strong>Education:</strong> <em>Live Better U</em> program covers 100% of tuition/books for associates.</li>
+                <li><strong>Philanthropy:</strong> Walmart Foundation provided <strong>$1.7 billion</strong> in cash/kind (FY2024).</li>
+                <li><strong>Disaster Response:</strong> Often faster than government agencies (e.g., Hurricane Katrina response).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>3. Global Impacts</h1>
+            <div class="presenter">
+                Yaser<br>
+                <span class="reg-no">G1F22UBSCS193</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Environmental Stewardship</h2>
+            <div class="stat-box">
+                <strong>Project Gigaton Achievement:</strong> Goal to avoid 1 billion metric tons of CO2 by 2030 was achieved 6 years early (Feb 2024).
+            </div>
+            <ul>
+                <li><strong>Scope 3 Emissions:</strong> Suppliers reported 1.19 billion metric tons avoided through efficiency and packaging changes.</li>
+                <li><strong>Renewable Energy:</strong> ~50% of global operations powered by renewables. Target: 100% by 2035.</li>
+                <li><strong>Regenerative Agriculture:</strong> Pushing suppliers toward soil-health farming practices.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>4. Income Details</h1>
+            <div class="presenter">
+                Abdul Rehman Khalid<br>
+                <span class="reg-no">G1F22UBSCS201</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Revenue Growth (2024-2025)</h2>
+            <ul>
+                <li><strong>FY2024 Revenue:</strong> $648.1 billion (6.03% growth).</li>
+                <li><strong>Trailing 12 Months (Oct 2025):</strong> $703.06 billion.</li>
+                <li><strong>Drivers:</strong>
+                    <ul>
+                        <li>Grocery resilience.</li>
+                        <li>E-commerce sales up 28% in U.S.</li>
+                        <li>Advertising revenue growth.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>4. Income Details</h1>
+            <div class="presenter">
+                Abdul Rehman Khalid<br>
+                <span class="reg-no">G1F22UBSCS201</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Profitability Analysis</h2>
+            <ul>
+                <li><strong>Net Income (2024):</strong> $19.4 billion (Surged 25.3%).</li>
+                <li><strong>Gross Margin:</strong> Consistently ~24-25% (Covers Cost of Goods Sold).</li>
+                <li><strong>Operating Margin:</strong> ~4.31%.
+                    <ul>
+                        <li>Improved due to automation lowering shipping costs.</li>
+                        <li>High-margin ad revenue (Walmart Connect) subsidizes retail prices.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>4. Income Details</h1>
+            <div class="presenter">
+                Abdul Rehman Khalid<br>
+                <span class="reg-no">G1F22UBSCS201</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Financial Position</h2>
+            <ul>
+                <li><strong>Stock:</strong> NYSE: WMT (Trading near all-time highs ~$115 in late 2025). "Dividend King" status.</li>
+                <li><strong>Total Assets:</strong> $288.6 billion (Massive real estate holdings).</li>
+                <li><strong>Inventory:</strong> $65.3 billion.
+                    <ul>
+                        <li>Inventory growth (2.6%) is lower than sales growth, indicating high efficiency.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>5. MIS They Use</h1>
+            <div class="presenter">
+                Jawad Ahmad<br>
+                <span class="reg-no">G1F22UBSCS020</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Supplier Collaboration: Retail Link to Luminate</h2>
+            <ul>
+                <li><strong>Retail Link (Legacy):</strong> Launched 1991. Allowed suppliers to see Point-of-Sale data to manage their own inventory (VMI).</li>
+                <li><strong>Walmart Luminate (Modern):</strong> 
+                    <ul>
+                        <li>Replaced DSS in 2024/2025.</li>
+                        <li><strong>Near Real-Time Data:</strong> API-first platform.</li>
+                        <li><strong>Predictive:</strong> Shows "Digital Landscapes" (Shopper behavior <em>before</em> purchase, search terms, cart abandonment).</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>5. MIS They Use</h1>
+            <div class="presenter">
+                Jawad Ahmad<br>
+                <span class="reg-no">G1F22UBSCS020</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Inventory Visibility: RFID Technology</h2>
+            <div class="stat-box">
+                <strong>Accuracy:</strong> RFID improved inventory accuracy from 63% to <strong>95-99%</strong>.
+            </div>
+            <ul>
+                <li><strong>Mandate:</strong> Suppliers in Home, Toys, Electronics, and Apparel must tag items with UHF RFID inlays.</li>
+                <li><strong>Function:</strong> Handheld readers scan hundreds of items instantly (non-line-of-sight).</li>
+                <li><strong>Impact:</strong> Eliminated "phantom inventory" and reduced out-of-stocks by 16%. Essential for accurate Online Pickup.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>5. MIS They Use</h1>
+            <div class="presenter">
+                Jawad Ahmad<br>
+                <span class="reg-no">G1F22UBSCS020</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Supply Chain Automation: Symbotic</h2>
+            <ul>
+                <li><strong>"The Hive":</strong> High-density automated storage structures in distribution centers.</li>
+                <li><strong>Robotics:</strong> Fleet of autonomous "bots" move cases up to 25 mph.</li>
+                <li><strong>AI Palletizing:</strong> Robots build "store-friendly" pallets (organized by aisle) to speed up stocking at stores.</li>
+                <li><strong>Scale:</strong> Over 50% of fulfillment center volume is now automated (2025).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>5. MIS They Use</h1>
+            <div class="presenter">
+                Jawad Ahmad<br>
+                <span class="reg-no">G1F22UBSCS020</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>Big Data & Workforce Management</h2>
+            <ul>
+                <li><strong>Data Café:</strong> Analytics hub processing 2.5 petabytes of data/hour. Integrates internal sales with external data (weather, social media) to predict demand (e.g., Pop-Tarts before hurricanes).</li>
+                <li><strong>Me@Walmart App:</strong>
+                    <ul>
+                        <li><strong>Hardware:</strong> 740,000+ Samsung devices given to staff.</li>
+                        <li><strong>Features:</strong> "Ask Sam" AI assistant, AR stocking tools, scheduling, and clock-in.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide">
+        <div class="header">
+            <h1>Conclusion</h1>
+            <div class="presenter">
+                Dot and Cross Technology
+            </div>
+        </div>
+        <div class="content">
+            <h2>Strategic Future</h2>
+            <ul>
+                <li><strong>Tech Company that Sells Retail:</strong> Walmart isn't just moving boxes; it's moving data.</li>
+                <li><strong>Convergence:</strong> Success relies on the seamless integration of Physical Stores and Digital Capability.</li>
+                <li><strong>Key Takeaway:</strong> You cannot be a cost leader without being a technology leader. The "Everyday Low Price" is powered by algorithms, robotics, and data efficiency.</li>
+            </ul>
+            <div style="text-align: center; margin-top: 50px;">
+                <h3>Thank You!</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="controls">
+    <button class="btn" id="prevBtn" onclick="prevSlide()" disabled>Previous</button>
+    <button class="btn" id="nextBtn" onclick="nextSlide()">Next</button>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progressBar');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+        updateProgress();
+        updateButtons();
+    }
+
+    function nextSlide() {
+        if (currentSlide < slides.length - 1) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    }
+
+    function updateProgress() {
+        const width = ((currentSlide + 1) / slides.length) * 100;
+        progressBar.style.width = width + '%';
+    }
+
+    function updateButtons() {
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === slides.length - 1;
+        if (currentSlide === slides.length - 1) {
+            nextBtn.innerText = "Finish";
+        } else {
+            nextBtn.innerText = "Next";
+        }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "ArrowRight") {
+            nextSlide();
+        } else if (event.key === "ArrowLeft") {
+            prevSlide();
+        }
+    });
+
+    // Initialize
+    updateProgress();
+</script>
+
+</body>
+</html>
